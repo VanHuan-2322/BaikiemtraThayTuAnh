@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h3 {
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: auto;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        .notify {
+            color: red;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<h3>Create Products</h3>
+<a href="/products">Back to list</a>
+
+<form th:action="@{/products/edit}" th:object="${productEdit}" method="post">
+    <label for="name">Name</label>
+    <input id="name" type="text" th:field="*{name}" />
+    <p class="notify" th:if="${#fields.hasErrors('name')}">Tên cần dài từ 6-32 ký tự</p>
+
+    <label for="code">Code</label>
+    <input id="code" type="text" th:field="*{code}" />
+    <p class="notify" th:if="${#fields.hasErrors('code')}"></p>
+
+    <label for="description">Description</label>
+    <input id="description" type="text" th:field="*{description}" />
+    <p class="notify" th:if="${#fields.hasErrors('description')}"></p>
+
+    <label for="price">Price</label>
+    <input id="price" type="text" th:field="*{price}"/>
+    <p class="notify" th:if="${#fields.hasErrors('price')}"></p>
+
+    <label for="date">Date</label>
+    <input id="date" type="date" th:field="*{dateTime}"/>
+    <input type="hidden" th:field="*{id}">
+    <input type="submit" value="Save">
+</form>
+</body>
+</html>

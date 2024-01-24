@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h3 {
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="search"] {
+            padding: 8px;
+            margin-right: 5px;
+        }
+
+        input[type="submit"] {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        td a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        td a:hover {
+            text-decoration: underline;
+        }
+
+        td span {
+            margin: 0 5px;
+            color: #333;
+        }
+
+        td a.edit {
+            color: #007bff;
+        }
+
+        td a.delete {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+<h3>List Product</h3>
+<a href="products/create">Create new product</a>
+
+<form th:action="@{/products/search}" method="post">
+    <input type="search" name="search" placeholder="Search...">
+    <input type="submit" value="Search">
+</form>
+
+<table>
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Code</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Date</th>
+        <th>Action</th>
+    </tr>
+    <tr th:each="list, iterStat : ${lists}">
+        <td th:text="${iterStat.count}"></td>
+        <td><a th:text="${list.name}" th:href="@{/products/detail/{id}(id=${list.id})}"></a></td>
+        <td th:text="${list.code}"></td>
+        <td th:text="${list.description}"></td>
+        <td th:text="${list.price}"></td>
+        <td th:text="${list.dateTime}"></td>
+        <td>
+            <a th:href="@{/products/edit/{id}(id=${list.id})}" class="edit">edit</a>
+            <span>|</span>
+            <a th:href="@{/products/delete/{id}(id=${list.id})}" class="delete">delete</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
